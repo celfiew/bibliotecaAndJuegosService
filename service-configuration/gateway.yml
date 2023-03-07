@@ -1,0 +1,41 @@
+server:
+  port: ${PORT:${SERVER_PORT:8080}}
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      default-filters:
+        - name: FilterCustom
+      routes:
+        - id: msbiblioteca #identificador de la ruta
+          uri: lb://biblioteca-service #URL donde se hará el redirect segun el predicado definido
+          predicates: #Reglas de analisis de request
+            - Path=/biblioteca/** #path de url de request a considerar
+        - id: msjuegos
+          uri: lb://juegos-service
+          predicates:
+            - Path=/juegos/**
+
+info:
+  app:
+    name: ${spring.application.name}
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: true
+    serviceURL:
+      defaultZone: http://localhost:8761/eureka
+  management:
+    endpoint:
+      gateway:
+        enabled: true
+    endpoints: 
+      web:
+        exposure:
+          include: gateway
