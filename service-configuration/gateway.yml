@@ -9,8 +9,6 @@ spring:
       discovery:
         locator:
           enabled: true
-      default-filters:
-        - name: FilterCustom
       routes:
         - id: msbiblioteca #identificador de la ruta
           uri: lb://biblioteca-service #URL donde se hará el redirect segun el predicado definido
