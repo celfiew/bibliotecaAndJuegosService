@@ -14,11 +14,6 @@ spring:
           uri: lb://biblioteca-service #URL donde se hará el redirect segun el predicado definido
           predicates: #Reglas de analisis de request
             - Path=/biblioteca/** #path de url de request a considerar
-        - id: msjuegos
-          uri: lb://juegos-service
-          predicates:
-            - Path=/juegos/**
-
 info:
   app:
     name: ${spring.application.name}
